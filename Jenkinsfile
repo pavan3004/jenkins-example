@@ -1,32 +1,10 @@
 pipeline {
-    agent any
-
-    stages {
-        stage ('Compile Stage') {
-
-            steps {
-                withMaven(maven : 'maven_3_5_0') {
-                    sh 'mvn clean compile'
-                }
-            }
-        }
-
-        stage ('Testing Stage') {
-
-            steps {
-                withMaven(maven : 'maven_3_5_0') {
-                    sh 'mvn test'
-                }
-            }
-        }
-
-
-        stage ('Deployment Stage') {
-            steps {
-                withMaven(maven : 'maven_3_5_0') {
-                    sh 'mvn deploy'
-                }
-            }
-        }
-    }
+   agent anynode
+   stage('SCM Checkout'){
+    git 'https://github.com/pavan3004/jenkins-example'
+  }
+  stage('Compile-Package'){
+    def mvnHome = tool name: 'maven', type: 'maven'
+    sh "${mvnHome}/bin/mvn package"
+  }
 }
