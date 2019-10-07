@@ -1,5 +1,5 @@
 node{
-  stage('SCM Checkout')
+  stage('SCM Checkout'){
     git 'https://github.com/pavan3004/jenkins-example'
   }
   stage('Compile-Package'){
